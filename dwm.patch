@@ -1,0 +1,74 @@
+--- ../config.h	2017-09-29 10:33:36.334821584 +0200
++++ config.h	2017-10-04 22:54:43.984928287 +0200
+@@ -2,14 +2,15 @@
+ 
+ /* appearance */
+ static const char *fonts[] = {
+-	"monospace:size=10"
++	"DejaVu Sans Mono:size=10"
+ };
+-static const char dmenufont[]       = "monospace:size=10";
++static const char dmenufont[]       = "DejaVu Sans Mono:size=10";
+ static const char normbordercolor[] = "#444444";
+ static const char normbgcolor[]     = "#222222";
+ static const char normfgcolor[]     = "#bbbbbb";
+ static const char selbordercolor[]  = "#005577";
+-static const char selbgcolor[]      = "#005577";
++//static const char selbgcolor[]      = "#005577";
++static const char selbgcolor[]      = "#222222";
+ static const char selfgcolor[]      = "#eeeeee";
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+@@ -24,15 +25,14 @@
+ 	 *	WM_CLASS(STRING) = instance, class
+ 	 *	WM_NAME(STRING) = title
+ 	 */
+-	/* class      instance    title       tags mask     isfloating   monitor */
+-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
++	/* class         instance  title  tags mask  isfloating  monitor */
++	{ "Gimp",        NULL,     NULL,  0,         1,          -1 },
+ };
+ 
+ /* layout(s) */
+ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+ static const int nmaster     = 1;    /* number of clients in master area */
+-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
++static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+ 
+ static const Layout layouts[] = {
+ 	/* symbol     arrange function */
+@@ -42,7 +42,7 @@
+ };
+ 
+ /* key definitions */
+-#define MODKEY Mod1Mask
++#define MODKEY Mod4Mask
+ #define TAGKEYS(KEY,TAG) \
+ 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+ 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+@@ -82,15 +82,15 @@
+ 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+ 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+ 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+-	TAGKEYS(                        XK_1,                      0)
+-	TAGKEYS(                        XK_2,                      1)
+-	TAGKEYS(                        XK_3,                      2)
+-	TAGKEYS(                        XK_4,                      3)
+-	TAGKEYS(                        XK_5,                      4)
+-	TAGKEYS(                        XK_6,                      5)
+-	TAGKEYS(                        XK_7,                      6)
+-	TAGKEYS(                        XK_8,                      7)
+-	TAGKEYS(                        XK_9,                      8)
++	TAGKEYS(                        XK_ampersand,              0)
++	TAGKEYS(                        XK_bracketleft,            1)
++	TAGKEYS(                        XK_braceleft,              2)
++	TAGKEYS(                        XK_braceright,             3)
++	TAGKEYS(                        XK_parenleft,              4)
++	TAGKEYS(                        XK_equal,                  5)
++	TAGKEYS(                        XK_asterisk,               6)
++	TAGKEYS(                        XK_parenright,             7)
++	TAGKEYS(                        XK_plus,                   8)
+ 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+ };
+ 
