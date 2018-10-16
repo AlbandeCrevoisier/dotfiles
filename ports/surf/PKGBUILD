@@ -1,0 +1,45 @@
+pkgname=surf
+pkgver=2.0
+pkgrel=1
+pkgdesc='A simple web browser based on WebKit/GTK+.'
+arch=('i686' 'x86_64')
+url='httpn://surf.suckless.org/'
+license=('MIT')
+depends=('webkit2gtk' 'xorg-xprop')
+optdepends=('dmenu: URL-bar'
+            'ca-certificates: SSL verification'
+            'xterm: default download handler'
+            'curl: default download handler')
+makedepends=('git')
+source=("git+https://git.suckless.org/surf"
+        'config.h')
+md5sums=('SKIP'
+	'SKIP')
+groups=('modified')
+
+pkgver() {
+  cd $srcdir/$pkgname
+  printf "%s" "$(grep ^VERSION config.mk | sed 's/VERSION = //')"
+}
+
+prepare() {
+	cd $srcdir/$pkgname
+	cp $srcdir/../config.h config.h
+}
+
+build() {
+  cd $srcdir/$pkgname
+
+  sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
+  sed -i 's/CFLAGS =/CFLAGS +=/g' config.mk
+  sed -i 's/LDFLAGS =/LDFLAGS +=/g' config.mk
+
+  make -j 5
+}
+
+package() {
+  cd $srcdir/$pkgname
+
+  make PREFIX=/usr DESTDIR="${pkgdir}" install
+  install -Dm0644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
