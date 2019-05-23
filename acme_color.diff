@@ -1,7 +1,6 @@
 void
 iconinit(void)
 {
-
 	Rectangle r;
 	Image *tmp;
 
@@ -13,7 +12,7 @@ iconinit(void)
 		tagcols[TEXT] = display->black;
 		tagcols[HTEXT] = display->black;
 		*/
-	
+
 		/* Yellow
 		textcols[BACK] = allocimagemix(display, DPaleyellow, DWhite);
 		textcols[HIGH] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DDarkyellow);
@@ -25,13 +24,14 @@ iconinit(void)
 		/* Black */
 #define DGrey 		0x212121FF
 #define DLightgrey 	0x484848FF
-#define DGreyText 	0x888888FF
-#define DLightGreyText 	0xB6B6B6FF
+#define DGreyText 	0xEEEEEEFF
+#define DRedText	0xEF9A9AFF
+#define DLightRedText	0xFFCDD2FF
 		tagcols[BACK] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DGrey);
 		tagcols[HIGH] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DLightgrey);
 		tagcols[BORD] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DLightgrey);
-		tagcols[TEXT] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DLightGreyText);
-		tagcols[HTEXT] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DLightGreyText);
+		tagcols[TEXT] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DGreyText);
+		tagcols[HTEXT] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DGreyText);
 		textcols[BACK] = display->black;
 		textcols[HIGH] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DGrey);
 		textcols[BORD] = allocimage(display, Rect(0,0,1,1), screen->chan, 1, DGrey);
