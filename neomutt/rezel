@@ -1,0 +1,12 @@
+set imap_user = alban
+set folder = imaps://imap.rezel.net/
+set spoolfile = +INBOX
+unset record
+unmailboxes *
+
+set from = alban@rezel.net
+set smtp_url=smtps://alban@smtp.rezel.net
+set ssl_force_tls = yes
+set ssl_starttls = yes
+
+account-hook $folder "set imap_user = alban"

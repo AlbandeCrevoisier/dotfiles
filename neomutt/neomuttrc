@@ -1,0 +1,44 @@
+set realname = 'Alban de Crevoisier'
+set editor = 'vis'
+
+ignore *; unignore from date subject to cc
+hdr_order From Date Subject To Cc
+set header_cache = ~/.cache/mutt
+set sort = threads
+
+set imap_check_subscribed
+unset imap_passive
+set imap_keepalive = 300
+bind index \Cg imap-fetch-mail
+
+#set record = +Sent
+
+set mbox_type = Maildir
+
+set mailcap_path = "~/.config/neomutt/mailcap"
+auto_view text/html
+alternative_order text/plain text/html
+
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+set mail_check_stats
+set sidebar_short_path
+bind index,pager B sidebar-toggle-visible
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+
+source "~/.config/neomutt/rezel"
+folder-hook $folder 'source ~/.config/neomutt/rezel'
+macro index,pager <f2> '<sync-mailbox><change-folder>imaps://imap.rezel.net<enter>'
+
+source "~/.config/neomutt/telecom"
+folder-hook $folder 'source ~/.config/neomutt/telecom'
+macro index,pager <f3> '<sync-mailbox><change-folder>imaps://z.mines-telecom.fr<enter>'
+
+source "~/.config/neomutt/gmail"
+folder-hook $folder 'source ~/.config/neomutt/gmail'
+macro index,pager <f4> '<sync-mailbox><change-folder>imaps://albandecrevoisier@imap.gmail.com<enter>'
+
+source "/usr/share/doc/neomutt/colorschemes/vombatidae.neomuttrc"
+
