@@ -1,0 +1,6 @@
+doas ifconfig iwn0 -inet -nwid -wpakey down
+doas ifconfig iwn0 nwid eduroam wpa wpaakms 802.1x up
+sleep 1
+doas wpa_supplicant -B -D openbsd -c /etc/wpa_supplicant.conf -i iwn0
+sleep 4
+doas dhclient iwn0
