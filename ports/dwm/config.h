@@ -3,10 +3,10 @@
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
+static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Go Mono:size=10" };
-static const char dmenufont[]       = "Go Mono:size=10";
+static const char *fonts[]          = { "Dejavu Sans Mono:size=12" };
+static const char dmenufont[]       = "Dejavu Sans Mono:size=12";
 static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#212121";
 static const char col_gray3[]       = "#424242";
@@ -44,7 +44,7 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ Mod1Mask|ControlMask,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
@@ -82,10 +82,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_ampersand,              0)
-	TAGKEYS(                        XK_bracketleft,            1)
-	TAGKEYS(                        XK_braceleft,              2)
-	TAGKEYS(                        XK_braceright,             3)
+	TAGKEYS(                        XK_h,                      0)
+	TAGKEYS(                        XK_t,                      1)
+	TAGKEYS(                        XK_n,                      2)
+	TAGKEYS(                        XK_s,                      3)
+//	TAGKEYS(                        XK_ampersand,              0)
+//	TAGKEYS(                        XK_bracketleft,            1)
+//	TAGKEYS(                        XK_braceleft,              2)
+//	TAGKEYS(                        XK_braceright,             3)
 	TAGKEYS(                        XK_parenleft,              4)
 	TAGKEYS(                        XK_equal,                  5)
 	TAGKEYS(                        XK_asterisk,               6)
