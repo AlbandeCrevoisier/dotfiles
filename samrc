@@ -1,0 +1,16 @@
+font DejaVu Serif
+autoindent true
+background lightcyan:lightyellow
+
+bind C a command bol
+bind C e command eol
+bind C u command delbol
+bind C h command delbs
+
+bind C h command charleft
+bind C t command linedown
+bind C n command lineup
+bind C s command charright
+
+bind C z command send u
+
