@@ -1,5 +1,5 @@
 pkgname=dwm
-pkgver=6.1
+pkgver=6.2
 pkgrel=1
 pkgdesc="A dynamic window manager for X"
 url="https://dwm.suckless.org"
@@ -8,9 +8,11 @@ license=('MIT')
 options=(zipman)
 depends=('libx11' 'libxinerama' 'libxft' 'freetype2' 'st' 'dmenu')
 source=('git+https://git.suckless.org/dwm/'
-	'https://dwm.suckless.org/patches/noborder/dwm-noborder-6.1.diff'
+        'https://dwm.suckless.org/patches/noborder/dwm-noborder-6.2.diff'
+        'https://dwm.suckless.org/patches/dragmfact/dwm-dragmfact-6.2.diff'
 	'config.h')
 md5sums=('SKIP'
+	'SKIP'
 	'SKIP'
 	'SKIP')
 groups=('modified')
@@ -23,7 +25,8 @@ pkgver() {
 prepare() {
 	cd $srcdir/$pkgname
 	cp $srcdir/../config.h config.h
-	patch -p1 -i $srcdir/dwm-noborder-6.1.diff
+	patch -p1 -i $srcdir/dwm-noborder-6.2.diff
+	patch -p1 -i $srcdir/dwm-dragmfact-6.2.diff
 }
 
 build() {
