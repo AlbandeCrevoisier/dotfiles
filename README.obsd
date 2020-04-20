@@ -1,0 +1,3 @@
+Cabal"
+W^X means /usr/local/ programs cannot run in ~/.cabal, to circumvent
+this just mkdir /usr/local/cabal/build chown -R usrname:wheel ln -s in .cabal.
