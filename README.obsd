@@ -1,3 +1,4 @@
-Cabal"
-W^X means /usr/local/ programs cannot run in ~/.cabal, to circumvent
-this just mkdir /usr/local/cabal/build chown -R usrname:wheel ln -s in .cabal.
+Cabal
+To run cabal v2-install agda agda-mode, I first had to manually
+mkdir ~/.cabal/store/ghc-<version>/package.db
+ghc-pkg init <^>
