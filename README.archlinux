@@ -8,7 +8,13 @@ screen tinting: sct
 nice fonts: Adobe: source code pro & garamond pro
 screenshot: maim
 instead of startx: sx
+st: use archlinux PKGBUILD, & just change the config.h
+package manager: yay
 
 emacs
 themes: sorcery, nord, orange-retro
 alternative: nano-emacs
+python: elpy, flycheck to replace flymake.
+
+python
+use mypy
