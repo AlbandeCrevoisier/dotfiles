@@ -7,6 +7,7 @@ sound: jack + alsa loops / pulseaudio / alsa
 screen tinting: sct
 nice fonts: Adobe: source code pro & garamond pro
 screenshot: maim
+instead of startx: sx
 
 emacs
 themes: sorcery, nord, orange-retro
