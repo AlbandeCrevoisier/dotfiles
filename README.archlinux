@@ -12,6 +12,7 @@ st: use archlinux PKGBUILD, & just change the config.h
 package manager: yay
 photo: darktable
 password manager: spm
+android: simple-mtpfs
 
 emacs
 themes: sorcery, nord, orange-retro
