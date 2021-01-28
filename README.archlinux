@@ -1,0 +1,13 @@
+Archlinux
+laptop: laptop-mode-tools
+backlight: /sys/class/backlight/xxxx/backlight
+mouse acceleration: archwiki, /etc/X11/xorg.conf.d/50-mouse-acceleration.conf
+java: see font aliasing
+sound: jack + alsa loops / pulseaudio / alsa
+screen tinting: sct
+nice fonts: Adobe: source code pro & garamond pro
+screenshot: maim
+
+emacs
+themes: sorcery, nord, orange-retro
+alternative: nano-emacs
