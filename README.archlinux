@@ -10,11 +10,14 @@ screenshot: maim
 instead of startx: sx
 st: use archlinux PKGBUILD, & just change the config.h
 package manager: yay
+photo: darktable
+password manager: spm
 
 emacs
 themes: sorcery, nord, orange-retro
 alternative: nano-emacs
 python: elpy, flycheck to replace flymake.
+git: magit
 
 python
 use mypy
