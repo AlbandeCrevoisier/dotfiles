@@ -1,0 +1,9 @@
+#!/home/ach/opt/plan9port/bin/rc
+
+if (~ $#* 1) font_size = $1
+if not font_size = 12
+
+
+SHELL=$PLAN9/bin/rc
+prompt='; '
+9 acme -f /mnt/font/DejaVuSans/^$font_size^a/font -F /mnt/font/DejaVuSansMono/^$font_size^a/font &

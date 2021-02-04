@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# loop client creation
+alsa_out -j ploop -dploop 2>&1 1> /dev/null &
+alsa_in -j  cloop -dcloop 2>&1 1> /dev/null &
+
+# give it some time before connecting to system ports
+sleep 1
+
+# cloop ports -> jack output ports 
+jack_connect cloop:capture_1 system:playback_1
+jack_connect cloop:capture_2 system:playback_2
+
+# ploop ports -> jack input ports 
+jack_connect ploop:playback_1 system:capture_1
+jack_connect ploop:playback_2 system:capture_2
+
+# done
+exit 0

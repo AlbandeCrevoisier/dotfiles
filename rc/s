@@ -1,0 +1,4 @@
+#!/home/ach/opt/plan9port/bin/rc
+
+sct 2500
+echo 10 | sudo tee /sys/class/backlight/nvidia_0/brightness

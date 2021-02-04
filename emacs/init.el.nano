@@ -1,0 +1,166 @@
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl (warn "\
+Your version of Emacs does not support SSL connections,
+which is unsafe because it allows man-in-the-middle attacks.
+There are two things you can do about this warning:
+1. Install an Emacs version that does support SSL and be safe.
+2. Remove this warning from your init file so you won't see it again."))
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+  ;; and `package-pinned-packages`. Most users will not need or want to do this.
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  )
+(package-initialize)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(custom-enabled-themes '(nord))
+ '(custom-safe-themes
+   '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" "80a23d559a5c5343a0882664733fd2c9e039b4dbf398c70c424c8d6858b39fc5" "7f6d4aebcc44c264a64e714c3d9d1e903284305fd7e319e7cb73345a9994f5ef" "d54834a3ec381644880b49fb82ce9d6ccc11997510c7071cfbf3558c8f4b68f6" default))
+ '(menu-bar-mode nil)
+ '(org-agenda-files
+   '("~/avant-vente/calls/heineken.org" "~/avant-vente/calls/razel-bec.org"))
+ '(package-selected-packages
+   '(flycheck-yamllint yaml-mode counsel volatile-highlights visual-regexp org-dashboard org org-d20 magit flycheck-cython cython-mode julia-shell julia-mode nord-theme 0blayout flycheck-pycheckers flycheck darkroom sorcery-theme elpy))
+ '(pdf-view-midnight-colors '("#dddddd" . "#000000"))
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 100 :width normal)))))
+
+;; Python elpy
+ '(elpy-folding-fringe-indicators nil)
+ '(elpy-modules
+   '(elpy-module-company elpy-module-eldoc elpy-module-folding elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-autodoc elpy-module-sane-defaults))
+ '(elpy-test-runner 'elpy-test-django-runner)
+(elpy-enable)
+;; Use flycheck instead of flymake
+(when (load "flycheck" t t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+;; Enable emacs 26 flymake indicators in an otherwise light modeline
+(setq elpy-remove-modeline-lighter t)
+(advice-add 'elpy-modules-remove-modeline-lighter
+            :around (lambda (fun &rest args)
+                      (unless (eq (car args) 'flymake-mode)
+                        (apply fun args))))
+;; Agda
+;;(load-file (let ((coding-system-for-read 'utf-8))
+;;                (shell-command-to-string "agda-mode locate")))
+
+
+;; Switch layouts
+(0blayout-mode)
+
+;; Visualy highlight operations
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
+
+;; ---------------------------------------------------------------------
+;; GNU Emacs / N Λ N O - Emacs made simple
+;; Copyright (C) 2020 - N Λ N O developers
+;;
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program. If not, see <http://www.gnu.org/licenses/>.
+;; ---------------------------------------------------------------------
+
+
+;; Path to nano emacs modules (mandatory)
+(add-to-list 'load-path "/home/ach/opt/nano-emacs")
+(add-to-list 'load-path ".")
+
+;; Default layout (optional)
+(require 'nano-layout)
+
+;; Theming Command line options (this will cancel warning messages)
+(add-to-list 'command-switch-alist '("-dark"   . (lambda (args))))
+(add-to-list 'command-switch-alist '("-light"  . (lambda (args))))
+(add-to-list 'command-switch-alist '("-default"  . (lambda (args))))
+(add-to-list 'command-switch-alist '("-no-splash" . (lambda (args))))
+(add-to-list 'command-switch-alist '("-no-help" . (lambda (args))))
+(add-to-list 'command-switch-alist '("-compact" . (lambda (args))))
+
+
+(cond
+ ((member "-default" command-line-args) t)
+ ((member "-dark" command-line-args) (require 'nano-theme-dark))
+ (t (require 'nano-theme-light)))
+
+;; Customize support for 'emacs -q' (Optional)
+;; You can enable customizations by creating the nano-custom.el file
+;; with e.g. `touch nano-custom.el` in the folder containing this file.
+(let* ((this-file  (or load-file-name (buffer-file-name)))
+       (this-dir  (file-name-directory this-file))
+       (custom-path  (concat this-dir "nano-custom.el")))
+  (when (and (eq nil user-init-file)
+             (eq nil custom-file)
+             (file-exists-p custom-path))
+    (setq user-init-file this-file)
+    (setq custom-file custom-path)
+    (load custom-file)))
+
+;; Theme
+(require 'nano-faces)
+(nano-faces)
+
+(require 'nano-theme)
+(nano-theme)
+
+;; Nano default settings (optional)
+(require 'nano-defaults)
+
+;; Nano session saving (optional)
+(require 'nano-session)
+
+;; Nano header & mode lines (optional)
+(require 'nano-modeline)
+
+;; Nano key bindings modification (optional)
+(require 'nano-bindings)
+
+;; Compact layout (need to be loaded after nano-modeline)
+(when (member "-compact" command-line-args)
+  (require 'nano-compact))
+  
+;; Nano counsel configuration (optional)
+;; Needs "counsel" package to be installed (M-x: package-install)
+;;(require 'nano-counsel)
+
+;; Welcome message (optional)
+(let ((inhibit-message t))
+  (message "Welcome to GNU Emacs / N Λ N O edition")
+  (message (format "Initialization time: %s" (emacs-init-time))))
+
+;; Splash (optional)
+(unless (member "-no-splash" command-line-args)
+  (require 'nano-splash))
+
+;; Help (optional)
+(unless (member "-no-help" command-line-args)
+  (require 'nano-help))
+
+(provide 'nano)
