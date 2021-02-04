@@ -1,0 +1,6 @@
+#!/usr/local/bin/rc
+ifconfig iwn0 -nwid -wpa -wpakey -inet -inet6
+ifconfig iwn0 nwid <Access Point> wpakey <password>
+pkill dhclient
+dhclient iwn0
+
