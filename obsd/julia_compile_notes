@@ -1,0 +1,19 @@
+# Make.inc
+589,598: TARTEST for gtar or bsdtar, fails.
+
+# shell
+md5sum, shasum, sha512sum instead of just md5, sha1?, sha512.
+
+# libwhich
+bump up to latest version 1.1.0: 
+b93fc7d4a9c5d561aaa6d2fc65f454ad5d23771b
+
+# installed
+gtar, gmake, mbedtls, flang, g77, cmake
+look what is not needed anymore with USE_SYSTEM_*
+
+see Make.user to know what was installed.
+
+CC=clang CXX=clang++ otherwise gcc gets forced.
+
+There should be a USE_CLANG flag, I think?
