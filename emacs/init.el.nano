@@ -25,8 +25,6 @@ There are two things you can do about this warning:
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" "80a23d559a5c5343a0882664733fd2c9e039b4dbf398c70c424c8d6858b39fc5" "7f6d4aebcc44c264a64e714c3d9d1e903284305fd7e319e7cb73345a9994f5ef" "d54834a3ec381644880b49fb82ce9d6ccc11997510c7071cfbf3558c8f4b68f6" default))
  '(menu-bar-mode nil)
- '(org-agenda-files
-   '("~/avant-vente/calls/heineken.org" "~/avant-vente/calls/razel-bec.org"))
  '(package-selected-packages
    '(flycheck-yamllint yaml-mode counsel volatile-highlights visual-regexp org-dashboard org org-d20 magit flycheck-cython cython-mode julia-shell julia-mode nord-theme 0blayout flycheck-pycheckers flycheck darkroom sorcery-theme elpy))
  '(pdf-view-midnight-colors '("#dddddd" . "#000000"))
