@@ -1,0 +1,15 @@
+Notes:
+editor: mg
+dm: xenodm
+Upgrade cycle: sysupgrade fw_update pkg_add -u
+search packages: pkg_mgr
+
+Cabal
+To run cabal v2-install agda agda-mode, I first had to manually
+mkdir ~/.cabal/store/ghc-<version>/package.db
+ghc-pkg init <^>
+
+Currently used packages:
+rc
+sam (but it's bad)
+dillo (debatable)
