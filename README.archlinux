@@ -13,6 +13,15 @@ package manager: yay
 photo: darktable
 password manager: spm
 android: simple-mtpfs
+slack: slack-term
+video: mpv, youtube-dl
+browser: dillo, surf, firefox
+terminal multiplexer: tmux
+editors: ed, mg, emacs, plan9front's sam, acme, dataspell/pycharm
+images: viewnior
+pdf: mupdf, masterpdfeditor
+wm: dwm/dmenu, cwm
+terminal: st, xterm
 
 emacs
 themes: sorcery, nord, orange-retro
