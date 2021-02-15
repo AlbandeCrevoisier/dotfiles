@@ -1,0 +1,1 @@
+Use rsync rather than cp to only copy missing files.
