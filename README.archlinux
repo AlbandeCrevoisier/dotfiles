@@ -31,3 +31,5 @@ git: magit
 
 python
 use mypy
+
+nice themes: behelit git://git.2f30.org/behelit
