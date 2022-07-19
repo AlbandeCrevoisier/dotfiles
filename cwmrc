@@ -1,3 +1,5 @@
+fontname "DejaVuSans:size=12:ExtraLight"
+
 command term st
 sticky yes
 
