@@ -1,11 +1,8 @@
-Archlinux
 laptop: laptop-mode-tools, powertop, tp-battery-mode (ThinkPad)
-backlight: /sys/class/backlight/xxxx/backlight
 mouse acceleration: archwiki, /etc/X11/xorg.conf.d/50-mouse-acceleration.conf
 java: see font aliasing
-sound: jack + alsa loops / pulseaudio / alsa
+sound: pipewire
 screen tinting: sct
-nice fonts: Adobe: source code pro & garamond pro
 screenshot: maim
 instead of startx: sx
 st: use archlinux PKGBUILD, & just change the config.h
@@ -14,22 +11,12 @@ photo: darktable
 password manager: spm
 android: simple-mtpfs
 slack: slack-term
-video: mpv, youtube-dl
+video: mpv, youtube-dl/ytdl
 browser: dillo, surf, firefox
 terminal multiplexer: tmux
-editors: ed, mg, emacs, plan9front's sam, acme, dataspell/pycharm
+editors: ed, mg, emacs, plan9front's sam, acme
 images: viewnior
 pdf: mupdf, masterpdfeditor
 wm: dwm/dmenu, cwm
-terminal: st, xterm
-
-emacs
-themes: sorcery, nord, orange-retro
-alternative: nano-emacs
-python: elpy, flycheck to replace flymake.
-git: magit
-
-python
-use mypy
-
+terminal: st, kitty
 nice themes: behelit git://git.2f30.org/behelit
