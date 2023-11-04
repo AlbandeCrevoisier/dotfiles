@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# See the river(1), riverctl(1), and rivertile(1) man pages for complete
+# documentation.
+
+riverctl map normal Super Q exit
+# riverctl map normal Super R /* restart */
+
+riverctl map normal Super W close
+riverctl map normal Super F toggle-fullscreen
+
+riverctl map normal Super Tab focus-view next
+
+riverctl map normal Super+Control H snap left
+riverctl map normal Super+Control T snap down
+riverctl map normal Super+Control N snap up
+riverctl map normal Super+Control S snap right
+
+# maximise height
+
+riverctl map normal Super U spawn kitty
+riverctl map normal Super A spawn fuzzel
+riverctl map normal Super O spawn grim
+riverctl map normal Super E spawn firefox
+
+riverctl map-pointer normal Super BTN_RIGHT move-view
+riverctl map-pointer normal Super BTN_LEFT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+riverctl map normal Super+Shift H set-view-tags 1
+riverctl map normal Super+Shift T set-view-tags $((1 << 1))
+riverctl map normal Super+Shift N set-view-tags $((1 << 2))
+riverctl map normal Super+Shift S set-view-tags $((1 << 3))
+
+riverctl map normal Super H set-focused-tags 1
+riverctl map normal Super T set-focused-tags $((1 << 1))
+riverctl map normal Super N set-focused-tags $((1 << 2))
+riverctl map normal Super S set-focused-tags $((1 << 3))
+
+
+riverctl background-color 0x000000
+riverctl border-color-focused 0x93a1a1
+riverctl border-color-unfocused 0x586e75
+
+riverctl border-width 0
+riverctl focus-follows-cursor normal
+
+
+riverctl keyboard-layout -variant dvp -options "lv3:caps_switch,compose:rctrl" us
+
+# Set keyboard repeat rate
+riverctl set-repeat 50 300
+
+# Way-displays (custom)
+way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &
+
+
+gsettings set org.gnome.desktop.wm.preferences button-layout ""
