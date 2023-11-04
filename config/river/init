@@ -20,7 +20,7 @@ riverctl map normal Super+Control S snap right
 
 riverctl map normal Super U spawn kitty
 riverctl map normal Super A spawn fuzzel
-riverctl map normal Super O spawn grim
+riverctl map normal Control+Shift F11 spawn grim
 riverctl map normal Super E spawn firefox
 
 riverctl map-pointer normal Super BTN_RIGHT move-view
