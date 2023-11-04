@@ -1,8 +1,0 @@
-Use rsync rather than cp to only copy missing files.
-
-task
-----
-dep graph: https://github.com/spencermamer/task-graphdeps
-notes: taskopen
-encrypt: git-crypt
-git: on-exit.sh hook
