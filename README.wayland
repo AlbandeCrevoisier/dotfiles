@@ -1,0 +1,8 @@
+compositor: river (river-git)
+screenshot: grim
+terminal emulator: kitty (gpu accel)
+emacs-wayland
+	bashrc: gsettings set org.gnome.desktop.wm.preferences button-layout ""
+	config/gtk-3.0: gtk.css
+app launcher: fuzzel
+display configuration (165Hz): way-displays (see river doc)
