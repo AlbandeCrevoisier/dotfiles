@@ -6,3 +6,4 @@ emacs-wayland
 	config/gtk-3.0: gtk.css
 app launcher: fuzzel
 display configuration (165Hz): way-displays (see river doc)
+native firefox: export MOZ_ENABLE_WAYLAND=1
