@@ -20,7 +20,8 @@ riverctl map normal Super+Control S snap right
 
 riverctl map normal Super U spawn kitty
 riverctl map normal Super A spawn fuzzel
-riverctl map normal Control+Shift F11 spawn grim
+riverctl map normal Super O spawn emacs
+riverctl map normal Control+Alt+Shift E spawn grim
 riverctl map normal Super E spawn firefox
 
 riverctl map-pointer normal Super BTN_RIGHT move-view
@@ -46,13 +47,28 @@ riverctl border-width 0
 riverctl focus-follows-cursor normal
 
 
-riverctl keyboard-layout -variant dvp -options "lv3:caps_switch,compose:rctrl" us
+riverctl keyboard-layout -options "lv3:caps_switch,compose:rctrl" custom
+riverctl map normal Super R keyboard-layout -options "lv3:caps_switch,compose:rctrl" custom
+riverctl map normal Super C keyboard-layout -variant sc custom
+riverctl map normal Super Z keyboard-layout -variant sc_sweep custom
+riverctl map normal Super G keyboard-layout -variant wasd custom
+riverctl map normal Super L keyboard-layout -variant dvorak us
 
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 
+riverctl  input pointer-5426-140-Razer_Razer_DeathAdder_V2_Mini accel-profile flat
+riverctl input pointer-5426-140-Razer_Razer_DeathAdder_V2_Mini pointer-accel 0.0
+riverctl input pointer-13364-53304-Keychron_Keychron_4K_Link accel-profile flat
+riverctl input pointer-13364-53304-Keychron_Keychron_4K_Link pointer-accel 0.0
+
+
 # Way-displays (custom)
 way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &
 
-
 gsettings set org.gnome.desktop.wm.preferences button-layout ""
+
+# screen sharing
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
+systemctl --user start wireplumber

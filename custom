@@ -1,0 +1,126 @@
+// Keyboard layouts for my kinesis advantage 2.
+
+default partial alphanumeric_keys modifier_keys
+xkb_symbols "ka2" {
+    name[Group1] = "Kinesis Advantage 2 programmer Dvorak";
+
+    //             Unmodified       Shift           AltGr            Shift+AltGr
+    // symbols row, left side
+    key <AE12> {[ numbersign,   grave,       dead_grave                  ]};
+    key <AE01> {[ ampersand,    percent                                  ]};
+    key <AE02> {[ bracketleft,  7,           currency                    ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE03> {[ braceleft,    5,           cent                        ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE04> {[ braceright,   3,           yen                         ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE05> {[ parenleft,    1,           EuroSign                    ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+
+    // symbols row, right side
+    key <AE06> {[ equal,        9,           sterling                    ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE07> {[ asterisk,     0                                        ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE08> {[ parenright,   2,           onehalf                     ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE09> {[ plus,         4                                        ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE10> {[ bracketright, 6                                        ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+    key <AE11> {[ exclam,       8,           exclamdown,      U2E18      ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };  // reversed interrobang
+
+    // upper row, left side
+    key <AD01> {[ semicolon,    colon,       dead_diaeresis              ]};
+    key <AD02> {[ comma,        less,        guillemotleft,   U201C      ]};
+    key <AD03> {[ period,       greater,     guillemotright,  U201D      ]};
+    key <AD04> {[ p,            P,           paragraph,       section    ]};
+    key <AD05> {[ y,            Y,           udiaeresis,      Udiaeresis ]};
+
+    // upper row, right side
+    key <AD06> {[ f,            F                                        ]};
+    key <AD07> {[ g,            G                                        ]};
+    key <AD08> {[ c,            C,           ccedilla,        Ccedilla   ]};
+    key <AD09> {[ r,            R,           registered,      trademark  ]};
+    key <AD10> {[ l,            L                                        ]};
+    key <BKSL> {[ backslash,    bar                                      ]};
+
+    // home row, left side
+    key <AC01> {[ a,            A,           aring,           Aring      ]};
+    key <AC02> {[ o,            O,           oslash,          Oslash     ]};
+    key <AC03> {[ e,            E,           ae,              AE         ]};
+    key <AC04> {[ u,            U,           eacute,          Eacute     ]};
+    key <AC05> {[ i,            I                                        ]};
+
+    // home row, right side
+    key <AC06> {[ d,            D,           eth,             ETH        ]};
+    key <AC07> {[ h,            H,           dead_acute                  ]};
+    key <AC08> {[ t,            T,           thorn,           THORN      ]};
+    key <AC09> {[ n,            N,           ntilde,          Ntilde     ]};
+    key <AC10> {[ s,            S,           ssharp,          U1E9E      ]};
+    key <AC11> {[ minus,        underscore,  hyphen,          endash     ], type[Group1] = "FOUR_LEVEL_ALPHABETIC" };
+
+    // lower row, left side
+    key <AB01> {[ apostrophe,   quotedbl,    dead_acute                  ]};
+    key <AB02> {[ q,            Q                                        ]};
+    key <AB03> {[ j,            J                                        ]};
+    key <AB04> {[ k,            K                                        ]};
+    key <AB05> {[ x,            X                                        ]};
+
+    // lower row, right side
+    key <AB06> {[ b,            B                                        ]};
+    key <AB07> {[ m,            M                                        ]};
+    key <AB08> {[ w,            W                                        ]};
+    key <AB09> {[ v,            V                                        ]};
+    key <AB10> {[ z,            Z                                        ]};
+
+    // extra bottom row, left side
+    key <TLDE> {[ dollar,       asciitilde,  dead_tilde                  ]};
+    key <LSGT> {[ U2207                                                  ]};  // nabla
+
+    // extra bottom row, right side
+    key <AD11> {[ slash,        question,    questiondown,    U203D      ]};  // interrobang
+    key <AD12> {[ at,           asciicircum, dead_circumflex, dead_caron ]};
+
+};
+
+partial alphanumeric_keys
+xkb_symbols "sc" {
+    include "custom(ka2)"
+    name[Group1] = "Kinesis Advantage 2 StarCraft";
+
+    key<AE12>{[ Escape ]};key<AE01>{[ 2     ]};key<AE02>{[ 3 ]};key<AE03>{[ 6 ]};key<AE04>{[ m ]};key<AE05>{[ w ]};
+    key<TAB> {[ q      ]};key<AD01>{[ j     ]};key<AD02>{[ 5 ]};key<AD03>{[ 4 ]};
+    key<CAPS>{[ 0      ]};
+                          key<AB01>{[ 1     ]};key<AB02>{[ 7 ]};key<AB03>{[ 8 ]};
+                          key<TLDE>{[ space ]};key<LSGT>{[ v ]};key<LEFT>{[ 9 ]};key<RGHT>{[ z ]};
+
+    key <BKSP> {[ F2 ]};
+    key <DELE> {[ F3 ]};
+    key <END>  {[ F4 ]};
+    key <HOME> {[ F5 ]};
+    key <LALT> {[ Tab ]};
+};
+
+partial alphanumeric_keys
+xkb_symbols "sc_sweep" {
+    include "custom(ka2)"
+    name[Group1] = "Aurora Sweep StarCraft";
+    // base layer
+    key<AD01>{[ 1 ]};      key<AD02>{[ 2  ]};key<AD03>{[ 3  ]};         key<AD05>{[ Escape ]};
+    key<AC01>{[ 0 ]};                                                   key<AC05>{[ F4     ]};
+    key<AB01>{[ Shift_L ]};key<AB02>{[ F2 ]};key<AB03>{[ F3 ]};         key<AB05>{[ space  ]};
+    // Fn layer
+    key<AE01>{[ j ]};key<AE02>{[ 4 ]};key<AE03>{[ 5 ]};key<AE04>{[ m ]};key<AE05>{[ y ]};
+    key<AE12>{[ a ]};key<AC07>{[ 6 ]};key<LALT>{[ 7 ]};key<BKSP>{[ z ]};key<CAPS>{[ i ]};
+    key<TLDE>{[ w ]};key<RCTL>{[ 8 ]};key<AB04>{[ 9 ]};key<TAB> {[ v ]};key<AE07>{[ x ]};
+};
+
+partial alphanumeric_keys
+xkb_symbols "wasd" {
+    include "custom(ka2)"
+    name[Group1] = "Kinesis Advantage 2 WASD";
+
+
+    key <AC03> {[ w ]};
+    key <AC02> {[ a ]};
+    key <AC04> {[ d ]};
+    key <AB03> {[ s ]};
+    key <AC01> {[ f ]};
+    key <AB01> {[ e ]};
+    key <AD04> {[ r ]};
+    key <AD05> {[ n ]};
+    key <BKSP> {[ space ]};
+
+};

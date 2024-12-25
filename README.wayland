@@ -7,3 +7,6 @@ emacs-wayland
 app launcher: fuzzel
 display configuration (165Hz): way-displays (see river doc)
 native firefox: export MOZ_ENABLE_WAYLAND=1
+       Firefox in river doesn't play too well with fullscreen, so to display as
+       if in fullscreen without using river's fullscreen:
+       about:config -> set "full-screen-api.ignore-widgets" to true
