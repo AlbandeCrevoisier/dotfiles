@@ -1,0 +1,170 @@
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+set $mod Mod4
+
+set $term kitty
+set $menu fuzzel
+
+### Output configuration
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+# Read `man 5 sway-output` for more information about this section.
+output DP-1 {
+    mode 3440x1440@164.999Hz
+    bg "#000000" solid_color
+    adaptive_sync on
+}
+
+### Input configuration
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+input 10730:258:Kinesis_Advantage2_Keyboard Xkb_layout custom
+bindsym $mod+r input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant ka2
+bindsym $mod+c input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant sc
+bindsym $mod+g input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant wasd
+bindsym $mod+l input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant games
+
+input type:pointer {
+    accel_profile flat
+    pointer_accel 0.0
+}
+
+### Key bindings
+bindsym $mod+a exec $menu
+bindsym $mod+o exec emacs
+bindsym $mod+Shift+o exec emacs -compact
+bindsym $mod+e exec firefox
+bindsym $mod+u exec $term
+
+bindsym $mod+j exec 'i3-fit-floats --fit --x-origin=1168 --y-origin=66'
+bindsym $mod+k exec 'i3-fit-floats --fit --x-origin=617 --y-origin=66'
+bindsym $mod+x exec 'i3-fit-floats --fit --x-origin=65 --y-origin=66'
+
+bindsym $mod+m exec pactl set-default-sink alsa_output.pci-0000_0c_00.1.hdmi-stereo-extra3
+bindsym $mod+d exec pactl set-default-sink alsa_output.usb-FiiO_FiiO_USB_DAC-E17-01.analog-stereo
+
+
+bindsym $mod+w kill
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod inverse
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+q exec 'swaymsg exit'
+#
+# Moving around:
+#
+# Move your focus around
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+# Switch to workspace
+bindsym $mod+h workspace number 1
+bindsym $mod+t workspace number 2
+bindsym $mod+n workspace number 3
+bindsym $mod+s workspace number 4
+# Move focused container to workspace
+bindsym $mod+Shift+h move container to workspace number 1
+bindsym $mod+Shift+t move container to workspace number 2
+bindsym $mod+Shift+n move container to workspace number 3
+bindsym $mod+Shift+s move container to workspace number 4
+#
+# Layout stuff:
+#
+#    workspace_layout stacking
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+#bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+#
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+r mode "resize"
+#
+# Utilities:
+#
+    # Special keys to adjust volume via PulseAudio
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # Special keys to adjust brightness via brightnessctl
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    # Special key to take a screenshot with grim
+    bindsym Print exec grim
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    mode invisible
+}
+
+default_border none
+default_floating_border none
+
+for_window [app_id="emacs"] floating enable
+for_window [shell="xwayland"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+
+include /etc/sway/config.d/*
