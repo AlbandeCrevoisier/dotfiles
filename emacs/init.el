@@ -1,4 +1,5 @@
-(defvar bootstrap-version) ;; Straight
+;; Straight — emacs package manager
+(defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
         "straight/repos/straight.el/bootstrap.el"
@@ -14,74 +15,108 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-(straight-use-package 'ligature) ;; Fira Code ligatures
-(ligature-set-ligatures 't '("www"))
-(ligature-set-ligatures 'prog-mode '("www" "**" "***" "**/" "*>" "*/" "\\\\"
-                                     "\\\\\\" "{-" "::" ":::" ":=" "!!" "!="
-                                     "!==" "-}" "----" "-->" "->" "->>" "-<"
-                                     "-<<" "-~" "#{" "#[" "##" "###" "####" "#("
-                                     "#?" "#_" "#_(" ".-" ".=" ".." "..<" "..."
-                                     "?=" "??" ";;" "/*" "/**" "/=" "/==" "/>"
-                                     "//" "///" "&&" "||" "||=" "|=" "|>" "^="
-                                     "$>" "++" "+++" "+>" "=:=" "==" "===" "==>"
-                                     "=>" "=>>" "<=" "=<<" "=/=" ">-" ">=" ">=>"
-                                     ">>" ">>-" ">>=" ">>>" "<*" "<*>" "<|"
-                                     "<|>" "<$" "<$>" "<!--" "<-" "<--" "<->"
-                                     "<+" "<+>" "<=" "<==" "<=>" "<=<" "<>" "<<"
-                                     "<<-" "<<=" "<<<" "<~" "<~~" "</" "</>"
-                                     "~@" "~-" "~>" "~~" "~~>" "%%"))
-(global-ligature-mode 't)
 
-(straight-use-package
- '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
-(setq nano-font-family-monospaced "Fira Code")
-(setq nano-font-family-proportional "Andika")
-(setq nano-font-size 18)
-(require 'nano)
 
-(pixel-scroll-precision-mode 't)
+;; Tools
+(straight-use-package 'magit)
+(straight-use-package '(forge :after magit))
+(setq auth-sources '("~/.authinfo.gpg"))
+(straight-use-package 'treemacs)
+(straight-use-package 'typit)
 
-(straight-use-package 'markdown-mode)
 
+
+;; Completion
+
+;; Bash completion
 (straight-use-package 'bash-completion)
 (require 'bash-completion)
 (bash-completion-setup)
 
-(straight-use-package 'scheme-complete)
-(autoload 'scheme-smart-complete "scheme-complete" nil t)
-(eval-after-load 'scheme
-  '(define-key scheme-mode-map "\t" 'scheme-complete-or-indent))
-(autoload 'scheme-get-current-symbol-info "scheme-complete" nil t)
-(add-hook 'scheme-mode-hook
-  (lambda ()
-    (make-local-variable 'eldoc-documentation-function)
-    (setq eldoc-documentation-function 'scheme-get-current-symbol-info)
-    (eldoc-mode)))
-(setq lisp-indent-function 'scheme-smart-indent-function)
+;; Ivy + Counsel + Swiper
+(straight-use-package 'ivy)
+(straight-use-package 'counsel)
+(straight-use-package 'swiper)
+
+;; lsp-mode
+(straight-use-package 'lsp-mode)
+(straight-use-package 'lsp-ui)
+(straight-use-package 'lsp-ivy)
+(straight-use-package 'lsp-treemacs)
+(lsp-treemacs-sync-mode 1)
+;; lsp-booster
+(defun lsp-booster--advice-json-parse (old-fn &rest args)
+  "Try to parse bytecode instead of json."
+  (or
+   (when (equal (following-char) ?#)
+     (let ((bytecode (read (current-buffer))))
+       (when (byte-code-function-p bytecode)
+         (funcall bytecode))))
+   (apply old-fn args)))
+(advice-add (if (progn (require 'json)
+                       (fboundp 'json-parse-buffer))
+                'json-parse-buffer
+              'json-read)
+            :around
+            #'lsp-booster--advice-json-parse)
+(defun lsp-booster--advice-final-command (old-fn cmd &optional test?)
+  "Prepend emacs-lsp-booster command to lsp CMD."
+  (let ((orig-result (funcall old-fn cmd test?)))
+    (if (and (not test?)                             ;; for check lsp-server-present?
+             (not (file-remote-p default-directory)) ;; see lsp-resolve-final-command, it would add extra shell wrapper
+             lsp-use-plists
+             (not (functionp 'json-rpc-connection))  ;; native json-rpc
+             (executable-find "emacs-lsp-booster"))
+        (progn
+          (when-let ((command-from-exec-path (executable-find (car orig-result))))  ;; resolve command from exec-path (in case not found in $PATH)
+            (setcar orig-result command-from-exec-path))
+          (message "Using emacs-lsp-booster for %s!" orig-result)
+          (cons "emacs-lsp-booster" orig-result))
+      orig-result)))
+(advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
+
+;; Flycheck
+(straight-use-package '(flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode)))
+
+;; Company
+(straight-use-package '(company-mode
+  :config (add-hook 'after-init-hook #'global-company-mode)))                        
 
 
 
-(straight-use-package 'company) ;; Generic front-end for completion engines
-;; TODO use properly?
-;;(global-company-mode 't)
+;; Appearance
 
-(straight-use-package 'magit)
-(straight-use-package 'forge) ;; TODO make work
-;(with-eval-after-load 'magit
-;  (require 'forge))
-(setq auth-sources '("~/.authinfo"))
+;; N Λ N O
+(straight-use-package
+  '(nano :type git :host github :repo "rougier/nano-emacs"))
+(setq nano-font-family-proportional "Andika")
+(setq nano-font-size 16)
+;; Replace "#" by "" in nano-modeline
+;; require nano-counsel
+(require 'nano)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(menu-bar-mode nil)
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; Misc
+(menu-bar-mode 0)
+(blink-cursor-mode 0)
+
+
+
+;; Languages
+
+;; Tree-sitter grammars
+(setq treesit-language-source-alist
+      '((agda "https://github.com/tree-sitter/tree-sitter-agda")
+        (bash "https://github.com/tree-sitter/tree-sitter-bash")
+        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+        (json "https://github.com/tree-sitter/tree-sitter-json")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+        (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+;; Agda
+(load-file (let ((coding-system-for-read 'utf-8))
+             (shell-command-to-string "agda-mode locate")))
