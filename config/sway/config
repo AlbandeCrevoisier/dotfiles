@@ -14,16 +14,13 @@ output DP-1 {
     bg "#000000" solid_color
     adaptive_sync on
 }
+bindsym $mod+at output DP-1 transform normal
+bindsym $mod+Shift+at output DP-1 transform 90
 
 ### Input configuration
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-input 10730:258:Kinesis_Advantage2_Keyboard Xkb_layout custom
-bindsym $mod+r input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant ka2
-bindsym $mod+c input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant sc
-bindsym $mod+g input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant wasd
-bindsym $mod+l input 10730:258:Kinesis_Advantage2_Keyboard xkb_variant games
-
+input type:keyboard xkb_layout custom
 input type:pointer {
     accel_profile flat
     pointer_accel 0.0
@@ -31,17 +28,21 @@ input type:pointer {
 
 ### Key bindings
 bindsym $mod+a exec $menu
-bindsym $mod+o exec emacs
-bindsym $mod+Shift+o exec emacs -compact
+bindsym $mod+o exec 'emacs & i3-fit-floats --fit --x-origin=1168 --y-origin=66'
+bindsym $mod+Shift+o exec 'emacs -treize & i3-fit-floats --fit --x-origin=1290 --y-origin=178'
 bindsym $mod+e exec firefox
 bindsym $mod+u exec $term
 
 bindsym $mod+j exec 'i3-fit-floats --fit --x-origin=1168 --y-origin=66'
+bindsym $mod+Shift+j exec 'i3-fit-floats --fit --x-origin=1168 --sizex=1106 --sizey=1439 --border=none'
 bindsym $mod+k exec 'i3-fit-floats --fit --x-origin=617 --y-origin=66'
 bindsym $mod+x exec 'i3-fit-floats --fit --x-origin=65 --y-origin=66'
 
+bindsym $mod+z resize set width 964px height 724px
+bindsym $mod+Shift+z move position center
+
 bindsym $mod+m exec pactl set-default-sink alsa_output.pci-0000_0c_00.1.hdmi-stereo-extra3
-bindsym $mod+d exec pactl set-default-sink alsa_output.usb-FiiO_FiiO_USB_DAC-E17-01.analog-stereo
+bindsym $mod+d exec pactl set-default-sink bluez_output.CC_98_8B_80_A1_DA.1
 
 
 bindsym $mod+w kill
@@ -166,5 +167,6 @@ default_floating_border none
 for_window [app_id="emacs"] floating enable
 for_window [shell="xwayland"] floating enable
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
+for_window [app_id="mpv"] floating enable
 
 include /etc/sway/config.d/*
